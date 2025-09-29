@@ -48,7 +48,7 @@ export async function loginByApi(page: Page, email: string, password: string) {
     {
       name: 'auth_token',
       value: 'mock-jwt-token',
-      domain: 'dev-portal.nebulablock.com',
+      domain: 'dev-portal.meganova.ai',
       path: '/'
     }
   ]);

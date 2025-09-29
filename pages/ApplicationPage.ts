@@ -23,7 +23,7 @@ export class ApplicationPage extends BasePage {
 
   async checkUI() {
     await expect(this.page.locator('h1:has-text("Application")')).toBeVisible();
-    await expect(this.page.locator('text=Our dedicated support team is here to help you with any questions or concerns related to the Nebula Block platform. We aim to provide timely and accurate responses, and your understanding is appreciated.')).toBeVisible();
+    await expect(this.page.locator('text=Our dedicated support team is here to help you with any questions or concerns related to the MegaNova AI platform. We aim to provide timely and accurate responses, and your understanding is appreciated.')).toBeVisible();
     
     // Check for Application sections
     await expect(this.page.locator('text=Startup Applications')).toBeVisible();

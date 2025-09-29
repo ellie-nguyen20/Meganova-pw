@@ -1,7 +1,6 @@
 import { test } from '../fixtures/testFixtures';
 import { expect } from '@playwright/test';
 import { HomePage } from '../pages/HomePage';
-import { loginByApi } from '../helpers/auth';
 
 test.describe('Home Page', () => {
   let homePage: HomePage;
@@ -21,90 +20,60 @@ test.describe('Home Page', () => {
     });
   });
 
-  test.describe('check chat bot function when user not login', () => {
-    test('should chat with chat bot successfully', async ({ page }) => {
-      await homePage.clickChatBot();
-      await homePage.sendChatMessage('Hey, I need help');
-      await page.waitForTimeout(10000);
-
-      const lastMessage = page.frameLocator('iframe[src*="chat.nebulablock.com"]').locator('.chat-answer-container');
-
-      await expect(lastMessage).toHaveCount(2);
+  test.describe('check navigation functionality', () => {
+    test('should navigate to Sign in page', async ({ page }) => {
+      await homePage.clickSignIn();
+      // Add assertion to check if we're on sign in page
+      await expect(page).toHaveURL(/.*sign.*in.*|.*login.*/i);
     });
 
-    test('should link successfully to the GPU that chat bot suggest', async ({ page, context }) => {
-      await homePage.clickChatBot();
-      await homePage.sendChatMessage("I'm finding the gpu H100");
-      await page.waitForTimeout(10000);
+    test('should navigate to Sign up page', async ({ page }) => {
+      await homePage.clickSignUp();
+      // Add assertion to check if we're on sign up page
+      await expect(page).toHaveURL(/.*sign.*up.*|.*register.*/i);
+    });
 
-      // Get chatbot iframe
-      const chatFrame = page.frameLocator('iframe[src*="chat.nebulablock.com"]');
-      // Get first link from the answer
-      const firstLink = chatFrame.locator('.chat-answer-container a', { hasText: 'Rent' }).first();
+    test('should navigate to Explore page', async ({ page }) => {
+      await homePage.clickExplore();
+      // Add assertion to check if we're on explore page
+      await expect(page).toHaveURL(/.*explore.*/i);
+    });
 
-      // Ensure link is visible
-      await expect(firstLink).toBeVisible();
+    test('should navigate to Pricing page', async ({ page }) => {
+      await homePage.clickPricing();
+      // Add assertion to check if we're on pricing page
+      await expect(page).toHaveURL(/.*pricing.*/i);
+    });
 
-      // Open link in new tab (if link opens in new tab)
+    test('should navigate to Docs page', async ({ page, context }) => {
+      // Docs link opens in new tab
       const [newPage] = await Promise.all([
         context.waitForEvent('page'),
-        firstLink.click({ button: 'middle' })
+        homePage.clickDocs()
       ]);
 
       // Wait for new page to load
       await newPage.waitForLoadState();
-      await newPage.waitForTimeout(10000);
-
-      // Check if URL contains '/instance'
-      expect(newPage.url()).toContain('/instance');
-
-      // Check if page content contains GPU H100 code
-      await expect(newPage.locator('body')).toContainText('H100');
-
-      await expect(newPage.locator('body')).toContainText('Log in');
+      
+      // Check if URL contains docs
+      expect(newPage.url()).toContain('docs.meganova.ai');
     });
   });
 
-  test.describe('check chat bot function when user logged in', () => {
-    test.beforeEach(async ({ page }) => {
-      // Load credentials
-      const creds = require('../fixtures/credential.json');
+  test.describe('check pricing section', () => {
+    test('should display all pricing tiers', async ({ page }) => {
+      // Scroll to pricing section
+      await page.locator('text=Pricing').scrollIntoViewIfNeeded();
       
-      await loginByApi(page, creds.valid.email, creds.valid.password);
-      await page.goto('https://dev-portal.nebulablock.com/');
-    });
-
-    test('should link successfully to the GPU that chat bot suggest', async ({ page, context }) => {
-      await homePage.clickChatBot();
-      await homePage.sendChatMessage("I'm finding the gpu H100");
-      await page.waitForTimeout(10000);
-
-      // Get chatbot iframe
-      const chatFrame = page.frameLocator('iframe[src*="chat.nebulablock.com"]');
-      // Get first link from the answer
-      const firstLink = chatFrame.locator('.chat-answer-container a', { hasText: 'Rent' }).first();
-
-      // Ensure link is visible
-      await expect(firstLink).toBeVisible();
-
-      // Open link in new tab (if link opens in new tab)
-      const [newPage] = await Promise.all([
-        context.waitForEvent('page'),
-        firstLink.click({ button: 'middle' })
-      ]);
-
-      // Wait for new page to load
-      await newPage.waitForLoadState();
-      await newPage.waitForTimeout(10000);
-
-      // Check if URL contains '/instance'
-      expect(newPage.url()).toContain('/instance');
-
-      // Check if page content contains GPU H100 code
-      await expect(newPage.locator('body')).toContainText('H100');
-
-      const deploys = newPage.locator('*:text("Deploy")');
-      await expect(deploys).toHaveCount(2);
+      // Check for all three pricing tiers
+      await expect(page.locator('text=Engineer')).toBeVisible();
+      await expect(page.locator('text=Expert')).toBeVisible();
+      await expect(page.locator('text=Enterprise')).toBeVisible();
+      
+      // Check for pricing tier descriptions
+      await expect(page.locator('text=Get started with fast, flexible inference at pay as you go')).toBeVisible();
+      await expect(page.locator('text=Scale with reserved GPUs and advanced configs for production traffic')).toBeVisible();
+      await expect(page.locator('text=Your private model, infra, deployments and optimization at scale')).toBeVisible();
     });
   });
 }); 

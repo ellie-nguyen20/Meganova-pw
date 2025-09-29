@@ -20,11 +20,11 @@ test.describe('Billing Page, Add Credit', () => {
     // Use test data for payment
     const paymentData = PAYMENT_TEST_DATA.validCard;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ test.describe('Billing Page, Add Credit', () => {
     while (newTotal === initialTotal && retryCount < maxRetries) {
       await page.waitForTimeout(2000); // Wait 2 seconds
       
-      const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+      const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

@@ -34,7 +34,7 @@ test.describe('Billing Page, Discover Cards', () => {
       
       // Clean up test cards before all tests
       const token = await page.evaluate(() => 
-        localStorage.getItem('nebulablock_newlook_token')
+        localStorage.getItem('meganova_newlook_token')
       );
     
       console.log('=== BEFORE ALL CLEANUP (DISCOVER CARDS) ===');
@@ -45,7 +45,7 @@ test.describe('Billing Page, Discover Cards', () => {
         return;
       }
       
-      const getPaymentMethods = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+      const getPaymentMethods = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ test.describe('Billing Page, Discover Cards', () => {
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
-        const deleteResponse = await context.request.post('https://dev-portal-api.nebulablock.com/api/v1/payment/delete', {
+        const deleteResponse = await context.request.post('https://dev-portal-api.meganova.ai/api/v1/payment/delete', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ test.describe('Billing Page, Discover Cards', () => {
       
       // Final cleanup after all tests
       const token = await page.evaluate(() => 
-        localStorage.getItem('nebulablock_newlook_token')
+        localStorage.getItem('meganova_newlook_token')
       );
     
       console.log('=== AFTER ALL CLEANUP (DISCOVER CARDS) ===');
@@ -121,7 +121,7 @@ test.describe('Billing Page, Discover Cards', () => {
         return;
       }
       
-      const getPaymentMethods = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+      const getPaymentMethods = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ test.describe('Billing Page, Discover Cards', () => {
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
         console.log(`🗑️ Final cleanup - Attempting to delete Discover card ${card.last4} with ID: ${card.stripe_id}`);
-        const deleteResponse = await context.request.post('https://dev-portal-api.nebulablock.com/api/v1/payment/delete', {
+        const deleteResponse = await context.request.post('https://dev-portal-api.meganova.ai/api/v1/payment/delete', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -162,7 +162,7 @@ test.describe('Billing Page, Discover Cards', () => {
       
       // Final verification - check if cards still exist
       console.log('🔍 Final verification...');
-      const finalCheck = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+      const finalCheck = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

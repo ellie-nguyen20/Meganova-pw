@@ -1,6 +1,6 @@
 # Playwright Test Automation
 
-This project contains automated tests using Playwright for the Nebula Block development portal.
+This project contains automated tests using Playwright for the MegaNova AI development portal.
 
 ## Test Reports with Screenshots
 

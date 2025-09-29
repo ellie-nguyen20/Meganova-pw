@@ -202,7 +202,7 @@ export class DashboardPage extends BasePage {
     // Mock window.open
     await this.page.addInitScript(() => {
       window.open = (url?: string | URL, target?: string, features?: string) => {
-        expect(url).toBe('https://docs.nebulablock.com/');
+        expect(url).toBe('https://docs.meganova.ai/');
         return null;
       };
     });

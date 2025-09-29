@@ -20,11 +20,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.genericDecline;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -61,11 +61,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.insufficientFunds;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -81,7 +81,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -102,11 +102,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.lostCard;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -122,7 +122,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -143,11 +143,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.stolenCard;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -184,11 +184,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.expiredCard;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -204,7 +204,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -225,11 +225,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.incorrectCVC;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -245,7 +245,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -266,11 +266,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.processingError;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -286,7 +286,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -307,11 +307,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.incorrectNumber;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -327,7 +327,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -348,11 +348,11 @@ test.describe('Billing Page, Declined Payments', () => {
     
     const paymentData = DECLINED_CARDS.velocityExceeded;
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
     // Get initial invoice records
-    const invoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const invoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -368,7 +368,7 @@ test.describe('Billing Page, Declined Payments', () => {
     // Verify no new invoice was created
     await page.waitForTimeout(3000);
     
-    const newInvoiceResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/users/invoices?limit=10&offset=0', {
+    const newInvoiceResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/users/invoices?limit=10&offset=0', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'

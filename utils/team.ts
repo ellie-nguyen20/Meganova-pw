@@ -1,7 +1,7 @@
 // tests/api/team.ts
 import { APIRequestContext } from '@playwright/test';
 
-const BASE_URL = 'https://dev-portal-api.nebulablock.com';
+const BASE_URL = 'https://dev-portal-api.meganova.ai';
 
 export async function createTeam(request: APIRequestContext, token: string, name: string, description: string) {
   const res = await request.post(`${BASE_URL}/api/v1/teams`, {

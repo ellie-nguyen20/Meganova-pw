@@ -1,7 +1,7 @@
 // tests/api/auth.ts
 import { APIRequestContext, Page } from '@playwright/test';
 
-const BASE_URL = 'https://dev-portal-api.nebulablock.com';
+const BASE_URL = 'https://dev-portal-api.meganova.ai';
 
 export async function loginAndGetToken(request: APIRequestContext, username: string, password: string): Promise<string> {
   const formData = new URLSearchParams();
@@ -24,6 +24,6 @@ export async function loginAndGetToken(request: APIRequestContext, username: str
 export async function loginByApiAndSetLocalStorage(page: Page, token: string) {
   await page.goto('/');
   await page.evaluate((token) => {
-    localStorage.setItem('nebulablock_newlook_token', token);
+    localStorage.setItem('meganova_newlook_token', token);
   }, token);
 }

@@ -30,10 +30,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -73,10 +73,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -93,7 +93,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -116,10 +116,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -136,7 +136,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -159,10 +159,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -179,7 +179,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -202,10 +202,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -222,7 +222,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -245,10 +245,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -265,7 +265,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -288,10 +288,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -308,7 +308,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -331,10 +331,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -351,7 +351,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -374,10 +374,10 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     
     // Get initial payment methods count
     const token = await page.evaluate(() => 
-      localStorage.getItem('nebulablock_newlook_token')
+      localStorage.getItem('meganova_newlook_token')
     );
     
-    const initialResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const initialResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -394,7 +394,7 @@ test.describe('Billing Page, Add Card - Declined Cards', () => {
     await page.waitForTimeout(5000);
     
     // Verify no new payment method was added
-    const newResponse = await context.request.get('https://dev-portal-api.nebulablock.com/api/v1/payment/payment-methods', {
+    const newResponse = await context.request.get('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'

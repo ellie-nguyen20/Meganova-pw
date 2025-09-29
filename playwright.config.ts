@@ -33,7 +33,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: 'https://dev-console.nebulablock.com',
+    baseURL: 'https://dev-console.meganova.ai',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -66,7 +66,7 @@ export default defineConfig({
     {
       name: 'api',
       use: {
-        baseURL: 'https://dev-portal.nebulablock.com/api/v1',
+        baseURL: 'https://dev-portal.meganova.ai/api/v1',
         storageState: '.auth/login.json',
       },
       dependencies: ['setup'],
@@ -76,7 +76,7 @@ export default defineConfig({
       name: 'auth-tests',
       use: { 
         ...devices['Desktop Chrome'],
-        baseURL: 'https://dev-console.nebulablock.com',
+        baseURL: 'https://dev-console.meganova.ai',
         storageState: undefined, 
       },
       testMatch: /.*\.no-prefix-auth|no-prefix-auth\.ts/,
