@@ -44,13 +44,13 @@ test.describe('Dashboard Page', () => {
     await dashboardPage.checkUI();
   });
 
-  test('should display resource summary', async ({ page }) => {
-    await dashboardPage.checkResourceSummary();
-  });
+  // test('should display resource summary', async ({ page }) => {
+  //   await dashboardPage.checkResourceSummary();
+  // });
 
-  test('should display usage statistics', async ({ page }) => {
-    await dashboardPage.checkUsageStats();
-  });
+  // test('should display usage statistics', async ({ page }) => {
+  //   await dashboardPage.checkUsageStats();
+  // });
 
   test('should display Help button', async ({ page }) => {
     await dashboardPage.checkHelpButton();

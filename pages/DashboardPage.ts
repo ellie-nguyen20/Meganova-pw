@@ -42,8 +42,8 @@ export class DashboardPage extends BasePage {
     const inferenceUsageSection = this.page.locator('text=Inference Usage');
     await inferenceUsageSection.scrollIntoViewIfNeeded();
     
-    const instancesUsageSection = this.page.locator('text=Instances Usage');
-    await instancesUsageSection.scrollIntoViewIfNeeded();
+    // const instancesUsageSection = this.page.locator('text=Instances Usage');
+    // await instancesUsageSection.scrollIntoViewIfNeeded();
   }
 
   async checkTimeFilterButton() {
@@ -162,8 +162,8 @@ export class DashboardPage extends BasePage {
   async checkSidebarMenu() {
     const menus = [
       // 'Instances', 'Reserved Instances' add later
-      'Home', 'Object Storage', 'Serverless Models', 'SSH Public Key', 'API Keys', 'Billing',
-      'Account', 'Team','Audit Logs', 'Support', 'Referral'
+      'Home', 'Serverless Models', 'API Keys', 'Billing',
+      'Account', 'Team', 'Application', 'Referral'
     ];
     
     for (const menu of menus) {

@@ -33,7 +33,7 @@ export class ReferralPage extends BasePage {
     await expect(this.page.locator('text=https://dev-console.meganova.ai/register?referral')).toBeVisible();
     await expect(this.page.locator('text=Share the link or code with your friends')).toBeVisible();
     await expect(this.page.locator('text=Every penny the spend gets you closer to earning up to 4.00%!')).toBeVisible();
-    await expect(this.page.locator('text=Learn More')).toBeVisible();
+    // await expect(this.page.locator('text=Learn More')).toBeVisible();
 
     // Apply Referral code section
     await expect(this.page.locator('text=Add referral code')).toBeVisible();

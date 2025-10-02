@@ -14,6 +14,9 @@ const allModels = [
   'Gemini-2.0-Flash',
   'Gemini-2.0-Flash-Lite',
   // Text Models
+  'Manta-Mini-1.0',
+  'Manta-Flash-1.0',
+  'Manta-Pro-1.0',
   'L3.3-MS-Nevoria-70b',
   'Mistral-Small-3.2-24B-Instruct-2506(beta)',
   'Midnight-Rose-70B-v2.0.3(beta)',
@@ -25,7 +28,6 @@ const allModels = [
   'Qwen-QwQ-32B',
   'DeepSeek-V3-0324',
   'DeepSeek-R1-0528',
-  // 'Bring your own model',
   // Image Models
   'Bytedance-Seedream-3.0',
   'FLUX.1 [Kontext-dev]',
@@ -33,6 +35,7 @@ const allModels = [
   // Embedding Models
   'UAE-Large-V1',
   'BGE-large-en-v1.5',
+  'M2-BERT-Retrieval-32k',
   'Qwen3-Embedding-8B',
   // Vision Models
   'Qwen2.5-VL-7B-Instruct',
@@ -67,13 +70,15 @@ export class ServerlessModelsPage extends BasePage {
   }
 
   async clickModel(modelName: string) {
-    const modelDiv = await this.getModelDiv(modelName);
-    await modelDiv.scrollIntoViewIfNeeded();
-    await modelDiv.waitFor({ state: 'visible' });
-    await modelDiv.click();
-    await this.page.waitForSelector('div.el-page-header__title:has-text("Back")', { timeout: 40000 });
-     // Back button
-    await expect(this.page.locator('div.el-page-header__title:has-text("Back")')).toBeVisible({ timeout: 40000 });
+    await expect(async () => {
+      const modelDiv = await this.getModelDiv(modelName);
+      await modelDiv.scrollIntoViewIfNeeded();
+      await modelDiv.waitFor({ state: 'visible' });
+      await modelDiv.click();
+      await this.page.waitForSelector('div.el-page-header__title:has-text("Back")', { timeout: 20000 });
+      // Back button
+      await expect(this.page.locator('div.el-page-header__title:has-text("Back")')).toBeVisible({ timeout: 20000 });
+    }).toPass({ timeout: 40000 });
   }
 
   async checkModelVisible(modelName: string) {

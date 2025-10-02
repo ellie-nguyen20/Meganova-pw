@@ -17,6 +17,9 @@ test.describe('Serverless Page - Text model', () => {
     test.setTimeout(60000);
     
     const textModels = [
+      'Manta-Mini-1.0',
+      'Manta-Flash-1.0',
+      'Manta-Pro-1.0',
       'L3.3-MS-Nevoria-70b',
       'Mistral-Small-3.2-24B-Instruct-2506(beta)',
       'Midnight-Rose-70B-v2.0.3(beta)',
