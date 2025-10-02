@@ -76,4 +76,18 @@ test.describe('Home Page', () => {
       await expect(page.locator('text=Your private model, infra, deployments and optimization at scale')).toBeVisible();
     });
   });
+
+  test('should verify page responsiveness on different screen sizes', async ({ page }) => {
+    // Test mobile viewport
+    await page.setViewportSize({ width: 375, height: 667 });
+    await homePage.checkUI();
+    
+    // Test tablet viewport
+    await page.setViewportSize({ width: 768, height: 1024 });
+    await homePage.checkUI();
+    
+    // Test desktop viewport
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await homePage.checkUI();
+  });
 }); 
