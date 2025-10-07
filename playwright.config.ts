@@ -52,16 +52,36 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'setup',
+      name: 'user-setup',
       use: { ...devices['Desktop Chrome'] },
-      testMatch: /.*\.setup\.ts/,
+      testMatch: /.*\.user-setup\.ts/,
     },
     {
-      name: 'chromium',
+      name: 'admin-setup',
       use: { ...devices['Desktop Chrome'],
-        storageState: '.auth/login.json',
+        baseURL: 'https://dev-admin.meganova.ai',
        },
-      dependencies: ['setup'],
+      testMatch: /.*\.admin-setup\.ts/,
+    },
+    {
+      name: 'user-tests',
+      use: { 
+        ...devices['Desktop Chrome'],
+        // baseURL: 'https://dev-console.meganova.ai',
+        storageState: '.auth/user-login.json',
+      },
+      dependencies: ['user-setup'],
+      testMatch: /tests\/user\/.*\.spec\.ts/,
+    },
+    {
+      name: 'admin-tests',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://dev-admin.meganova.ai',
+        storageState: '.auth/admin-login.json',
+      },
+      dependencies: ['admin-setup'],
+      testMatch: /tests\/admin\/.*\.spec\.ts/,
     },
     {
       name: 'api',
@@ -69,7 +89,7 @@ export default defineConfig({
         baseURL: 'https://dev-portal.meganova.ai/api/v1',
         storageState: '.auth/login.json',
       },
-      dependencies: ['setup'],
+      dependencies: ['user-setup'],
       testMatch: /.*\.api\.ts/,
     },
     {
@@ -79,7 +99,16 @@ export default defineConfig({
         baseURL: 'https://dev-console.meganova.ai',
         storageState: undefined, 
       },
-      testMatch: /.*\.no-prefix-auth|no-prefix-auth\.ts/,
+      testMatch: /tests\/user\/.*\.no-prefix-auth\.ts/,
+    },
+    {
+      name: 'admin-auth-tests',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://dev-admin.meganova.ai',
+        storageState: undefined, 
+      },
+      testMatch: /tests\/admin\/.*\.no-prefix-auth-admin\.ts/,
     }
     
 

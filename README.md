@@ -57,6 +57,196 @@ The GitHub Actions workflow automatically:
 
 See `playwright.config.ts` for detailed configuration including:
 - Screenshot settings: `screenshot: 'on'`
-- Trace settings: `trace: 'on-first-retry'`
+- Trace settings: `trace: 'retain-on-failure'`
 - Browser configuration
-- Timeout settings 
+- Timeout settings
+
+---
+
+# Testing Guide for Admin and User
+
+## Project Structure
+
+The project has been reorganized to support testing for both **User Console** and **Admin Panel**:
+
+```
+Meganova-pw/
+├── pages/
+│   ├── user/              # Page objects for user console
+│   │   ├── AccountPage.ts
+│   │   ├── DashboardPage.ts
+│   │   └── ...
+│   └── admin/             # Page objects for admin panel
+│       ├── AdminBasePage.ts
+│       ├── AdminLoginPage.ts
+│       ├── AdminDashboardPage.ts
+│       └── UserManagementPage.ts
+├── tests/
+│   ├── user/              # Tests for user console
+│   │   ├── dashboard.spec.ts
+│   │   ├── billing/
+│   │   └── ...
+│   └── admin/             # Tests for admin panel
+│       ├── admin-login.spec.ts
+│       ├── admin-dashboard.spec.ts
+│       └── user-management.spec.ts
+├── constants/
+│   ├── user-endpoints.ts  # Endpoints for user console
+│   └── admin-endpoints.ts # Endpoints for admin panel
+├── fixtures/
+│   ├── credential.json    # Credentials for both user and admin
+│   └── users.json
+```
+
+## Playwright Projects Configuration
+
+### User Tests
+- **Project name**: `user-tests`
+- **Base URL**: `https://dev-console.meganova.ai`
+- **Storage State**: `.auth/user-login.json`
+- **Test Pattern**: `tests/user/**/*.spec.ts`
+
+### Admin Tests
+- **Project name**: `admin-tests`
+- **Base URL**: `https://dev-admin.meganova.ai`
+- **Storage State**: `.auth/admin-login.json`
+- **Test Pattern**: `tests/admin/**/*.spec.ts`
+
+### User API Tests
+- **Project name**: `user-api`
+- **Base URL**: `https://dev-portal.meganova.ai/api/v1`
+- **Storage State**: `.auth/user-login.json`
+- **Test Pattern**: `tests/user/**/*.api.ts`
+
+### Admin API Tests
+- **Project name**: `admin-api`
+- **Base URL**: `https://dev-admin.meganova.ai/api/v1`
+- **Storage State**: `.auth/admin-login.json`
+- **Test Pattern**: `tests/admin/**/*.api.ts`
+
+## How to Run Tests
+
+### Run all tests
+```bash
+npx playwright test
+```
+
+### Run only user tests
+```bash
+npx playwright test --project=user-tests
+```
+
+### Run only admin tests
+```bash
+npx playwright test --project=admin-tests
+```
+
+### Run only user API tests
+```bash
+npx playwright test --project=user-api
+```
+
+### Run only admin API tests
+```bash
+npx playwright test --project=admin-api
+```
+
+### Run setup first
+```bash
+# Setup for user tests
+npx playwright test --project=user-setup
+
+# Setup for admin tests
+npx playwright test --project=admin-setup
+```
+
+## Credentials
+
+### User Credentials (`fixtures/credential.json`)
+```json
+{
+  "valid": {
+    "email": "thivunguyen1506@gmail.com",
+    "password": "777888",
+    "username": "Ellie Nguyen"
+  }
+}
+```
+
+### Admin Credentials (shared `credential.json`)
+```json
+{
+  "valid": {
+    "email": "thivunguyen1506@gmail.com",
+    "password": "777888",
+    "username": "Ellie Nguyen"
+  }
+}
+```
+
+## Endpoints
+
+### User Endpoints (`constants/user-endpoints.ts`)
+- Dashboard: `/home`
+- Billing: `/billing`
+- API Keys: `/apiKeys`
+- etc.
+
+### Admin Endpoints (`constants/admin-endpoints.ts`)
+- Admin Login: `/login`
+- Admin Dashboard: `/dashboard`
+- User Management: `/admin/users`
+- System Monitoring: `/admin/monitoring`
+- etc.
+
+## Creating New Page Objects
+
+### For User Console
+```typescript
+// pages/user/NewUserPage.ts
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from './BasePage';
+
+export class NewUserPage extends BasePage {
+  // Implementation
+}
+```
+
+### For Admin Panel
+```typescript
+// pages/admin/NewAdminPage.ts
+import { Page, Locator } from '@playwright/test';
+import { AdminBasePage } from './AdminBasePage';
+
+export class NewAdminPage extends AdminBasePage {
+  // Implementation
+}
+```
+
+## Creating New Tests
+
+### For User Console
+```typescript
+// tests/user/new-feature.spec.ts
+import { test, expect } from '@playwright/test';
+import { NewUserPage } from '../../pages/user/NewUserPage';
+
+test.describe('New User Feature', () => {
+  // Test implementation
+});
+```
+
+### For Admin Panel
+```typescript
+// tests/admin/new-admin-feature.spec.ts
+import { test, expect } from '@playwright/test';
+import { NewAdminPage } from '../../pages/admin/NewAdminPage';
+
+test.describe('New Admin Feature', () => {
+  // Test implementation
+});
+```
+
+## Migration from Old Structure
+
+All existing files have been moved to the `user/` directory and import paths have been automatically updated. No additional changes needed for existing tests. 
