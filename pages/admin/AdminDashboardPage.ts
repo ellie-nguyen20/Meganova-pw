@@ -35,7 +35,7 @@ export class AdminDashboardPage extends AdminBasePage {
     super(page);
     
     // Navigation elements
-    this.dashboardTitle = page.getByText('Dashboard');
+    this.dashboardTitle = page.getByRole('menuitem', { name: 'Dashboard' });
     this.promoCodesMenu = page.getByText('Promo Codes');
     this.userDropdown = page.getByText('Ellie Nguyen');
     this.signOutButton = page.getByText('Sign Out');
@@ -48,12 +48,12 @@ export class AdminDashboardPage extends AdminBasePage {
     this.clearButton = page.getByText('Clear');
 
     // Inference Overview section
-    this.requestsMetric = page.getByText('Requests');
-    this.successMetric = page.getByText('Success');
-    this.failedMetric = page.getByText('Failed');
-    this.inputTokensMetric = page.getByText('Input Tokens');
-    this.outputTokensMetric = page.getByText('Output Tokens');
-    this.avgResponseMetric = page.getByText('Avg Response');
+    this.requestsMetric = page.locator('text=Requests').first();
+    this.successMetric = page.locator('text=Success').first();
+    this.failedMetric = page.locator('text=Failed').first();
+    this.inputTokensMetric = page.locator('text=Input Tokens').first();
+    this.outputTokensMetric = page.locator('text=Output Tokens').first();
+    this.avgResponseMetric = page.locator('text=Avg Response').first();
     this.inferenceOverviewSection = page.getByText('Inference Overview');
 
     // Payment Overview section

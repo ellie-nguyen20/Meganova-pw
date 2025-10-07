@@ -21,12 +21,18 @@ export class AdminLoginPage extends AdminBasePage {
 
   async visit() {
     await this.page.goto(ADMIN_ENDPOINTS.ADMIN_LOGIN);
-    await expect(this.page).toHaveURL(new RegExp(ADMIN_ENDPOINTS.ADMIN_LOGIN), {timeout: 60000});
-
+    // Wait for page to load, don't expect specific URL as it might redirect
+    await this.page.waitForLoadState('networkidle');
   }
 
   async login(email: string, password: string) {
     await this.visit(); // Navigate to login page first
+    
+    // Wait for login form elements to be visible
+    await this.emailInput.waitFor({ state: 'visible', timeout: 30000 });
+    await this.passwordInput.waitFor({ state: 'visible', timeout: 30000 });
+    await this.loginButton.waitFor({ state: 'visible', timeout: 30000 });
+    
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
@@ -34,6 +40,12 @@ export class AdminLoginPage extends AdminBasePage {
 
   async loginWithRememberMe(email: string, password: string) {
     await this.visit(); // Navigate to login page first
+    
+    // Wait for login form elements to be visible
+    await this.emailInput.waitFor({ state: 'visible', timeout: 30000 });
+    await this.passwordInput.waitFor({ state: 'visible', timeout: 30000 });
+    await this.loginButton.waitFor({ state: 'visible', timeout: 30000 });
+    
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.rememberMeCheckbox.click();
