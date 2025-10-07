@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../../fixtures/testFixtures';
+import { expect } from '@playwright/test';
 import { AdminLoginPage } from '../../pages/admin/AdminLoginPage';
 import { AdminDashboardPage } from '../../pages/admin/AdminDashboardPage';
 import { ADMIN_ENDPOINTS } from '../../constants/admin-endpoints';
@@ -64,10 +65,10 @@ test.describe('Admin Dashboard', () => {
     const creditCards = await adminDashboardPage.getTotalCreditCardsCount();
     const payments = await adminDashboardPage.getTotalCreditCardPayment();
 
-    // Verify metrics contain numbers
-    expect(totalUsers).toMatch(/\d+/);
-    expect(creditCards).toMatch(/\d+/);
-    expect(payments).toMatch(/\$[\d,]+/);
+    // Verify metrics contain expected patterns (not specific numbers)
+    expect(totalUsers).toMatch(/Total Registered User:\s*\d+/);
+    expect(creditCards).toMatch(/Total Credit Cards:\s*\d+/);
+    expect(payments).toMatch(/Total Credit Card Payment:\s*\$[\d,]+/);
   });
 
   test('should allow user search functionality', async () => {
@@ -80,11 +81,19 @@ test.describe('Admin Dashboard', () => {
     expect(searchValue).toBe('');
   });
 
-  test('should allow navigation to promo codes', async () => {
+  test('should allow user dropdown interaction', async () => {
+    // Test user dropdown
+    await adminDashboardPage.clickUserDropdown();
+    
+    // Verify sign out button is visible after dropdown click
+    await expect(adminDashboardPage.signOutButton).toBeVisible();
+  });
+
+  test('should allow navigation to promo codes', async ({ page }) => {
     // Test navigation to promo codes
     await adminDashboardPage.clickPromoCodesMenu();
     
-    // Verify navigation (assuming it changes URL or shows promo codes page)
-    // This would need to be updated based on actual promo codes page behavior
+    // Verify navigation to promo codes page
+    await expect(page).toHaveURL(ADMIN_ENDPOINTS.PROMO_CODES);
   });
 });

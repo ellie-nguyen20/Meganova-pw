@@ -9,6 +9,7 @@ export const ADMIN_ENDPOINTS = {
   
   // Main Admin Pages
   ADMIN_DASHBOARD: '/dashboard',
+  PROMO_CODES: '/promo-codes',
   USER_MANAGEMENT: '/admin/users',
   SYSTEM_MONITORING: '/admin/monitoring',
   BILLING_MANAGEMENT: '/admin/billing',

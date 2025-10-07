@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test';
+import { test } from '../../fixtures/testFixtures';
+import { expect } from '@playwright/test';
 import { AdminLoginPage } from '../../pages/admin/AdminLoginPage';
 import { AdminDashboardPage } from '../../pages/admin/AdminDashboardPage';
 import { ADMIN_ENDPOINTS } from '../../constants/admin-endpoints';

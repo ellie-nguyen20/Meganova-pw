@@ -41,7 +41,7 @@ export class AdminDashboardPage extends AdminBasePage {
     this.signOutButton = page.getByText('Sign Out');
 
     // User Overview section
-    this.totalUsersText = page.getByText('Total Registered User: 545');
+    this.totalUsersText = page.locator('text=Total Registered User:').first();
     this.userOverviewSection = page.getByText('User Overview');
     this.userTable = page.locator('table').first();
     this.searchInput = page.getByPlaceholder('Search');
@@ -57,16 +57,20 @@ export class AdminDashboardPage extends AdminBasePage {
     this.inferenceOverviewSection = page.getByText('Inference Overview');
 
     // Payment Overview section
-    this.totalCreditCards = page.getByText('Total Credit Cards: 7');
-    this.totalProductPurchase = page.getByText('Total Product Purchase: 506');
-    this.totalCreditCardPayment = page.getByText('Total Credit Card Payment: $28,562.64');
-    this.totalStablecoinPayment = page.getByText('Total Stablecoin Payment: $0');
+    this.totalCreditCards = page.locator('text=Total Credit Cards:').first();
+    this.totalProductPurchase = page.locator('text=Total Product Purchase:').first();
+    this.totalCreditCardPayment = page.locator('text=Total Credit Card Payment:').first();
+    this.totalStablecoinPayment = page.locator('text=Total Stablecoin Payment:').first();
     this.paymentOverviewSection = page.getByText('Payment Overview');
   }
 
   // Navigation methods
   async clickPromoCodesMenu() {
     await this.promoCodesMenu.click();
+  }
+
+  async navigateToPromoCodes() {
+    await this.clickPromoCodesMenu();
   }
 
   async clickUserDropdown() {
