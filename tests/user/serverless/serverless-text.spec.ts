@@ -22,7 +22,6 @@ test.describe('Serverless Page - Text model', () => {
       'Manta-Pro-1.0',
       'L3.3-MS-Nevoria-70b',
       'Mistral-Small-3.2-24B-Instruct-2506(beta)',
-      'Midnight-Rose-70B-v2.0.3(beta)',
       'L3-70B-Euryale-v2.1(beta)',
       'L3-8B-Stheno-v3.2',
       'DeepSeek-R1-0528 (free)',

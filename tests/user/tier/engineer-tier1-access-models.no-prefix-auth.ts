@@ -70,7 +70,6 @@ test.describe('Engineer Tier 1 Access Models - Member 10', () => {
     const freeModels = [
       'L3.3-MS-Nevoria-70b',
       'Mistral-Small-3.2-24B-Instruct-2506(beta)',
-      'Midnight-Rose-70B-v2.0.3(beta)',
       'L3-70B-Euryale-v2.1(beta)',
       'L3-8B-Stheno-v3.2'
     ];

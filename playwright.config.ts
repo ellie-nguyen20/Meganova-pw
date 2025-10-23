@@ -102,6 +102,15 @@ export default defineConfig({
       testMatch: /tests\/user\/.*\.no-prefix-auth\.ts/,
     },
     {
+      name: 'landing-tests',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'https://dev-portal.meganova.ai',
+        storageState: undefined, 
+      },
+      testMatch: /tests\/landing\/.*\.ts/,
+    },
+    {
       name: 'admin-auth-tests',
       use: { 
         ...devices['Desktop Chrome'],
