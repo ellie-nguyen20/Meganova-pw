@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
 
-test.describe('Billing Page, Delete Card', () => {
+test.describe('Billing Page, Set Default Card', () => {
   let billingPage: BillingPage;
   const testData = {
       fullName: 'Ellie nguyen',
@@ -15,7 +15,7 @@ test.describe('Billing Page, Delete Card', () => {
       securityCode: '111'
   }
   const cards = {
-    second: '4000004400000000'
+    fifth: '4000008580000003'
   }
 
   test.beforeAll(async ({ browser }) => {
@@ -61,10 +61,37 @@ test.describe('Billing Page, Delete Card', () => {
       
       // Find cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '0000'
+        card.last4 === '0003'
       );
       
       console.log('Cards to delete:', cardsToDelete);
+      
+      // Reset default card before deleting test cards
+      if (cardsToDelete.length > 0) {
+        console.log('🔄 Resetting default card before deletion...');
+        // Find any other card to set as default (not the test card)
+        const otherCards = paymentJson.data.filter((card: any) => 
+          card.last4 !== '0003'
+        );
+        
+        if (otherCards.length > 0) {
+          const defaultCard = otherCards[0]; // Use first available card
+          console.log(`🔄 Setting card ${defaultCard.last4} as default before cleanup...`);
+          
+          const setDefaultResponse = await context.request.put('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods/default', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: {
+              payment_method: defaultCard.stripe_id
+            }
+          });
+          console.log(`✅ Default card reset status:`, setDefaultResponse.status());
+        } else {
+          console.log('⚠️ No other cards found to set as default');
+        }
+      }
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
@@ -137,11 +164,38 @@ test.describe('Billing Page, Delete Card', () => {
       
       // Find cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '0000'
+        card.last4 === '0003'
       );
       
       console.log('🧹 Final cleanup - Cards to delete:', cardsToDelete);
       console.log('📊 Total cards found before final cleanup:', paymentJson.data.length);
+      
+      // Reset default card before deleting test cards
+      if (cardsToDelete.length > 0) {
+        console.log('🔄 Resetting default card before deletion...');
+        // Find any other card to set as default (not the test card)
+        const otherCards = paymentJson.data.filter((card: any) => 
+          card.last4 !== '0003'
+        );
+        
+        if (otherCards.length > 0) {
+          const defaultCard = otherCards[0]; // Use first available card
+          console.log(`🔄 Setting card ${defaultCard.last4} as default before cleanup...`);
+          
+          const setDefaultResponse = await context.request.put('https://dev-portal-api.meganova.ai/api/v1/payment/payment-methods/default', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            data: {
+              payment_method: defaultCard.stripe_id
+            }
+          });
+          console.log(`✅ Default card reset status:`, setDefaultResponse.status());
+        } else {
+          console.log('⚠️ No other cards found to set as default');
+        }
+      }
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
@@ -168,7 +222,7 @@ test.describe('Billing Page, Delete Card', () => {
       });
       const finalData = await finalCheck.json();
       const remainingTestCards = finalData.data?.filter((card: any) => 
-        card.last4 === '0000'
+        card.last4 === '0003'
       ) || [];
       
       console.log('📊 Total cards after final cleanup:', finalData.data?.length || 0);
@@ -188,12 +242,11 @@ test.describe('Billing Page, Delete Card', () => {
     }
   });
 
-  test('should delete specific card by last 4 digits successfully - 4000004400000000', async () => {
+  test('should set a card as default successfully', async () => {
     test.setTimeout(90000);
- 
-    await billingPage.addNewCard(testData, cards.second);
+    await billingPage.addNewCard(testData, cards.fifth);
     await billingPage.verifyCardAddedSuccessfully();
-    await billingPage.deleteSpecificCard('0000');
-    await billingPage.verifyCardDeleted('0000');
+    await billingPage.setCardAsDefault('0003');
+    await billingPage.verifyCardSetAsDefault('0003');
   });
 });

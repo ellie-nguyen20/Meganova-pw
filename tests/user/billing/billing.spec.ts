@@ -1,7 +1,7 @@
 import { test } from '../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
+import { BillingPage } from '../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../constants/user-endpoints';
 
 test.describe.configure({ mode: 'parallel' });
 test.describe('Billing Page - Check UI', () => {
@@ -24,6 +24,14 @@ test.describe('Billing Page - Check UI', () => {
 
   test('should open and interact with Card payment methods', async () => {
     await billingPage.payWithCard();
+  });
+
+  test('should open and interact with PayPal payment methods', async () => {
+    await billingPage.clickAddCredits();
+    await billingPage.selectCreditAmount('50');
+    await billingPage.payWithPayPal();
+    // Note: This will redirect to PayPal, so we don't continue the flow here
+    // Full PayPal testing is done in billing-add-credit-with-paypal.spec.ts
   });
 
   // test('should open and interact with Crypto payment methods', async () => {

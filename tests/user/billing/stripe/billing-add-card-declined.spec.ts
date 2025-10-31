@@ -1,8 +1,8 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
-import { DECLINED_CARDS } from "../../../utils/testData";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
+import { DECLINED_CARDS } from '../../../../utils/testData';
 
 test.describe('Billing Page, Add Card - Declined Cards', () => {
   let billingPage: BillingPage;

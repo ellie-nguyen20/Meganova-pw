@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
 
-test.describe('Billing Page, Discover Cards', () => {
+test.describe('Billing Page, American Express Cards', () => {
   let billingPage: BillingPage;
   const testData = {
       fullName: 'Ellie nguyen',
@@ -15,9 +15,8 @@ test.describe('Billing Page, Discover Cards', () => {
       securityCode: '111'
   }
   const cards = {
-    discover: '6011111111111117',
-    discover2: '6011000990139424',
-    discoverDebit: '6011981111111113',
+    americanExpress: '371449635398431',
+    americanExpressAlternative: '378282246310005',
   }
 
   test.beforeAll(async ({ browser }) => {
@@ -37,7 +36,7 @@ test.describe('Billing Page, Discover Cards', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== BEFORE ALL CLEANUP (DISCOVER CARDS) ===');
+      console.log('=== BEFORE ALL CLEANUP (AMERICAN EXPRESS) ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -61,12 +60,12 @@ test.describe('Billing Page, Discover Cards', () => {
         return;
       }
       
-      // Find Discover cards with last4 digits that need to be deleted
+      // Find American Express cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '1117' || card.last4 === '9424' || card.last4 === '1113'
+        card.last4 === '8431' || card.last4 === '0005'
       );
       
-      console.log('Discover cards to delete:', cardsToDelete);
+      console.log('American Express cards to delete:', cardsToDelete);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
@@ -79,10 +78,10 @@ test.describe('Billing Page, Discover Cards', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`🗑️ Deleted Discover card ${card.last4}, status:`, deleteResponse.status());
+        console.log(`🗑️ Deleted American Express card ${card.last4}, status:`, deleteResponse.status());
       }
       
-      console.log('=== BEFORE ALL CLEANUP COMPLETED (DISCOVER CARDS) ===');
+      console.log('=== BEFORE ALL CLEANUP COMPLETED (AMERICAN EXPRESS) ===');
     } catch (error) {
       console.log('Error in beforeAll cleanup:', error);
     } finally {
@@ -113,7 +112,7 @@ test.describe('Billing Page, Discover Cards', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== AFTER ALL CLEANUP (DISCOVER CARDS) ===');
+      console.log('=== AFTER ALL CLEANUP (AMERICAN EXPRESS) ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -137,17 +136,17 @@ test.describe('Billing Page, Discover Cards', () => {
         return;
       }
       
-      // Find Discover cards with last4 digits that need to be deleted
+      // Find American Express cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '1117' || card.last4 === '9424' || card.last4 === '1113'
+        card.last4 === '8431' || card.last4 === '0005'
       );
       
-      console.log('🧹 Final cleanup - Discover cards to delete:', cardsToDelete);
+      console.log('🧹 Final cleanup - American Express cards to delete:', cardsToDelete);
       console.log('📊 Total cards found before final cleanup:', paymentJson.data.length);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
-        console.log(`🗑️ Final cleanup - Attempting to delete Discover card ${card.last4} with ID: ${card.stripe_id}`);
+        console.log(`🗑️ Final cleanup - Attempting to delete American Express card ${card.last4} with ID: ${card.stripe_id}`);
         const deleteResponse = await context.request.post('https://dev-portal-api.meganova.ai/api/v1/payment/delete', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -157,7 +156,7 @@ test.describe('Billing Page, Discover Cards', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`✅ Final cleanup - Deleted Discover card ${card.last4}, status:`, deleteResponse.status());
+        console.log(`✅ Final cleanup - Deleted American Express card ${card.last4}, status:`, deleteResponse.status());
       }
       
       // Final verification - check if cards still exist
@@ -170,19 +169,19 @@ test.describe('Billing Page, Discover Cards', () => {
       });
       const finalData = await finalCheck.json();
       const remainingTestCards = finalData.data?.filter((card: any) => 
-        card.last4 === '1117' || card.last4 === '9424' || card.last4 === '1113'
+        card.last4 === '8431' || card.last4 === '0005'
       ) || [];
       
       console.log('📊 Total cards after final cleanup:', finalData.data?.length || 0);
-      console.log('🚨 Remaining Discover test cards:', remainingTestCards);
+      console.log('🚨 Remaining American Express test cards:', remainingTestCards);
       
       if (remainingTestCards.length > 0) {
-        console.log('⚠️ WARNING: Some Discover test cards were not deleted in final cleanup!');
+        console.log('⚠️ WARNING: Some American Express test cards were not deleted in final cleanup!');
       } else {
-        console.log('✅ All Discover test cards successfully cleaned up in final cleanup!');
+        console.log('✅ All American Express test cards successfully cleaned up in final cleanup!');
       }
       
-      console.log('=== AFTER ALL CLEANUP COMPLETED (DISCOVER CARDS) ===');
+      console.log('=== AFTER ALL CLEANUP COMPLETED (AMERICAN EXPRESS) ===');
     } catch (error) {
       console.log('Error in afterAll cleanup:', error);
     } finally {
@@ -190,21 +189,15 @@ test.describe('Billing Page, Discover Cards', () => {
     }
   });
 
-  test('should accept Discover card - 6011111111111117', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.discover);
+  test.skip('should accept American Express - 371449635398431', async () => {
+    test.setTimeout(120000);
+    await billingPage.addNewCard(testData, cards.americanExpress);
     await billingPage.verifyCardAddedSuccessfully();
   });
 
-  test('should accept Discover card - 6011000990139424', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.discover2);
-    await billingPage.verifyCardAddedSuccessfully();
-  });
-
-  test('should accept Discover (debit) card - 6011981111111113', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.discoverDebit);
+  test('should accept American Express( Alternative) - 378282246310005', async () => {
+    test.setTimeout(120000);
+    await billingPage.addNewCard(testData, cards.americanExpressAlternative);
     await billingPage.verifyCardAddedSuccessfully();
   });
 

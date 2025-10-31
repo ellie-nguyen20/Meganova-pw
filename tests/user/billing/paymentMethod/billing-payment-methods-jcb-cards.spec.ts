@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
 
-test.describe('Billing Page, American Express Cards', () => {
+test.describe('Billing Page, JCB Cards', () => {
   let billingPage: BillingPage;
   const testData = {
       fullName: 'Ellie nguyen',
@@ -15,8 +15,8 @@ test.describe('Billing Page, American Express Cards', () => {
       securityCode: '111'
   }
   const cards = {
-    americanExpress: '371449635398431',
-    americanExpressAlternative: '378282246310005',
+    jcb: '3566002020360505',
+    jcbJapan: '3530111333300000',
   }
 
   test.beforeAll(async ({ browser }) => {
@@ -36,7 +36,7 @@ test.describe('Billing Page, American Express Cards', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== BEFORE ALL CLEANUP (AMERICAN EXPRESS) ===');
+      console.log('=== BEFORE ALL CLEANUP (JCB CARDS) ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -60,12 +60,12 @@ test.describe('Billing Page, American Express Cards', () => {
         return;
       }
       
-      // Find American Express cards with last4 digits that need to be deleted
+      // Find JCB cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '8431' || card.last4 === '0005'
+        card.last4 === '0505' || card.last4 === '0000'
       );
       
-      console.log('American Express cards to delete:', cardsToDelete);
+      console.log('JCB cards to delete:', cardsToDelete);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
@@ -78,10 +78,10 @@ test.describe('Billing Page, American Express Cards', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`🗑️ Deleted American Express card ${card.last4}, status:`, deleteResponse.status());
+        console.log(`🗑️ Deleted JCB card ${card.last4}, status:`, deleteResponse.status());
       }
       
-      console.log('=== BEFORE ALL CLEANUP COMPLETED (AMERICAN EXPRESS) ===');
+      console.log('=== BEFORE ALL CLEANUP COMPLETED (JCB CARDS) ===');
     } catch (error) {
       console.log('Error in beforeAll cleanup:', error);
     } finally {
@@ -112,7 +112,7 @@ test.describe('Billing Page, American Express Cards', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== AFTER ALL CLEANUP (AMERICAN EXPRESS) ===');
+      console.log('=== AFTER ALL CLEANUP (JCB CARDS) ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -136,17 +136,17 @@ test.describe('Billing Page, American Express Cards', () => {
         return;
       }
       
-      // Find American Express cards with last4 digits that need to be deleted
+      // Find JCB cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '8431' || card.last4 === '0005'
+        card.last4 === '0505' || card.last4 === '0000'
       );
       
-      console.log('🧹 Final cleanup - American Express cards to delete:', cardsToDelete);
+      console.log('🧹 Final cleanup - JCB cards to delete:', cardsToDelete);
       console.log('📊 Total cards found before final cleanup:', paymentJson.data.length);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
-        console.log(`🗑️ Final cleanup - Attempting to delete American Express card ${card.last4} with ID: ${card.stripe_id}`);
+        console.log(`🗑️ Final cleanup - Attempting to delete JCB card ${card.last4} with ID: ${card.stripe_id}`);
         const deleteResponse = await context.request.post('https://dev-portal-api.meganova.ai/api/v1/payment/delete', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -156,7 +156,7 @@ test.describe('Billing Page, American Express Cards', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`✅ Final cleanup - Deleted American Express card ${card.last4}, status:`, deleteResponse.status());
+        console.log(`✅ Final cleanup - Deleted JCB card ${card.last4}, status:`, deleteResponse.status());
       }
       
       // Final verification - check if cards still exist
@@ -169,19 +169,19 @@ test.describe('Billing Page, American Express Cards', () => {
       });
       const finalData = await finalCheck.json();
       const remainingTestCards = finalData.data?.filter((card: any) => 
-        card.last4 === '8431' || card.last4 === '0005'
+        card.last4 === '0505' || card.last4 === '0000'
       ) || [];
       
       console.log('📊 Total cards after final cleanup:', finalData.data?.length || 0);
-      console.log('🚨 Remaining American Express test cards:', remainingTestCards);
+      console.log('🚨 Remaining JCB test cards:', remainingTestCards);
       
       if (remainingTestCards.length > 0) {
-        console.log('⚠️ WARNING: Some American Express test cards were not deleted in final cleanup!');
+        console.log('⚠️ WARNING: Some JCB test cards were not deleted in final cleanup!');
       } else {
-        console.log('✅ All American Express test cards successfully cleaned up in final cleanup!');
+        console.log('✅ All JCB test cards successfully cleaned up in final cleanup!');
       }
       
-      console.log('=== AFTER ALL CLEANUP COMPLETED (AMERICAN EXPRESS) ===');
+      console.log('=== AFTER ALL CLEANUP COMPLETED (JCB CARDS) ===');
     } catch (error) {
       console.log('Error in afterAll cleanup:', error);
     } finally {
@@ -189,15 +189,15 @@ test.describe('Billing Page, American Express Cards', () => {
     }
   });
 
-  test.skip('should accept American Express - 371449635398431', async () => {
-    test.setTimeout(120000);
-    await billingPage.addNewCard(testData, cards.americanExpress);
+  test('should accept JCB card - 3566002020360505', async () => {
+    test.setTimeout(90000);
+    await billingPage.addNewCard(testData, cards.jcb);
     await billingPage.verifyCardAddedSuccessfully();
   });
 
-  test('should accept American Express( Alternative) - 378282246310005', async () => {
-    test.setTimeout(120000);
-    await billingPage.addNewCard(testData, cards.americanExpressAlternative);
+  test('should accept JCB card (Japan) - 3530111333300000', async () => {
+    test.setTimeout(90000);
+    await billingPage.addNewCard(testData, cards.jcbJapan);
     await billingPage.verifyCardAddedSuccessfully();
   });
 

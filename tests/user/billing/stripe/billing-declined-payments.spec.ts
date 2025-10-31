@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
-import { loginAndGetToken } from "../../../utils/auth";
-import { DECLINED_CARDS } from "../../../utils/testData";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
+import { loginAndGetToken } from '../../../../utils/auth';
+import { DECLINED_CARDS } from '../../../../utils/testData';
 
 test.describe('Billing Page, Declined Payments', () => {
   let billingPage: BillingPage;

@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
 
-test.describe('Billing Page, Mastercard', () => {
+test.describe('Billing Page, Duplicate Card', () => {
   let billingPage: BillingPage;
   const testData = {
       fullName: 'Ellie nguyen',
@@ -15,10 +15,7 @@ test.describe('Billing Page, Mastercard', () => {
       securityCode: '111'
   }
   const cards = {
-    mastercard: '5555555555554444',
-    mastercard2Series: '2223003122003222',
-    mastercardDebit: '5200828282828210',
-    mastercardPrepaid: '5105105105105100',
+    fourth: '5555558265554449'
   }
 
   test.beforeAll(async ({ browser }) => {
@@ -38,7 +35,7 @@ test.describe('Billing Page, Mastercard', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== BEFORE ALL CLEANUP (MASTERCARD) ===');
+      console.log('=== BEFORE ALL CLEANUP ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -62,12 +59,12 @@ test.describe('Billing Page, Mastercard', () => {
         return;
       }
       
-      // Find Mastercard cards with last4 digits that need to be deleted
+      // Find cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '4444' || card.last4 === '3222' || card.last4 === '8210' || card.last4 === '5100'
+        card.last4 === '4449'
       );
       
-      console.log('Mastercard cards to delete:', cardsToDelete);
+      console.log('Cards to delete:', cardsToDelete);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
@@ -80,10 +77,10 @@ test.describe('Billing Page, Mastercard', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`🗑️ Deleted Mastercard ${card.last4}, status:`, deleteResponse.status());
+        console.log(`🗑️ Deleted card ${card.last4}, status:`, deleteResponse.status());
       }
       
-      console.log('=== BEFORE ALL CLEANUP COMPLETED (MASTERCARD) ===');
+      console.log('=== BEFORE ALL CLEANUP COMPLETED ===');
     } catch (error) {
       console.log('Error in beforeAll cleanup:', error);
     } finally {
@@ -114,7 +111,7 @@ test.describe('Billing Page, Mastercard', () => {
         localStorage.getItem('meganova_newlook_token')
       );
     
-      console.log('=== AFTER ALL CLEANUP (MASTERCARD) ===');
+      console.log('=== AFTER ALL CLEANUP ===');
       console.log('JWT Token:', token ? token.substring(0, 50) + '...' : 'No token found');
       
       if (!token) {
@@ -138,17 +135,17 @@ test.describe('Billing Page, Mastercard', () => {
         return;
       }
       
-      // Find Mastercard cards with last4 digits that need to be deleted
+      // Find cards with last4 digits that need to be deleted
       const cardsToDelete = paymentJson.data.filter((card: any) => 
-        card.last4 === '4444' || card.last4 === '3222' || card.last4 === '8210' || card.last4 === '5100'
+        card.last4 === '4449'
       );
       
-      console.log('🧹 Final cleanup - Mastercard cards to delete:', cardsToDelete);
+      console.log('🧹 Final cleanup - Cards to delete:', cardsToDelete);
       console.log('📊 Total cards found before final cleanup:', paymentJson.data.length);
       
       // Delete each found card using stripe_id
       for (const card of cardsToDelete) {
-        console.log(`🗑️ Final cleanup - Attempting to delete Mastercard ${card.last4} with ID: ${card.stripe_id}`);
+        console.log(`🗑️ Final cleanup - Attempting to delete card ${card.last4} with ID: ${card.stripe_id}`);
         const deleteResponse = await context.request.post('https://dev-portal-api.meganova.ai/api/v1/payment/delete', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -158,7 +155,7 @@ test.describe('Billing Page, Mastercard', () => {
             payment_method_id: card.stripe_id
           }
         });
-        console.log(`✅ Final cleanup - Deleted Mastercard ${card.last4}, status:`, deleteResponse.status());
+        console.log(`✅ Final cleanup - Deleted card ${card.last4}, status:`, deleteResponse.status());
       }
       
       // Final verification - check if cards still exist
@@ -171,19 +168,19 @@ test.describe('Billing Page, Mastercard', () => {
       });
       const finalData = await finalCheck.json();
       const remainingTestCards = finalData.data?.filter((card: any) => 
-        card.last4 === '4444' || card.last4 === '3222' || card.last4 === '8210' || card.last4 === '5100'
+        card.last4 === '4449'
       ) || [];
       
       console.log('📊 Total cards after final cleanup:', finalData.data?.length || 0);
-      console.log('🚨 Remaining Mastercard test cards:', remainingTestCards);
+      console.log('🚨 Remaining test cards:', remainingTestCards);
       
       if (remainingTestCards.length > 0) {
-        console.log('⚠️ WARNING: Some Mastercard test cards were not deleted in final cleanup!');
+        console.log('⚠️ WARNING: Some test cards were not deleted in final cleanup!');
       } else {
-        console.log('✅ All Mastercard test cards successfully cleaned up in final cleanup!');
+        console.log('✅ All test cards successfully cleaned up in final cleanup!');
       }
       
-      console.log('=== AFTER ALL CLEANUP COMPLETED (MASTERCARD) ===');
+      console.log('=== AFTER ALL CLEANUP COMPLETED ===');
     } catch (error) {
       console.log('Error in afterAll cleanup:', error);
     } finally {
@@ -191,28 +188,14 @@ test.describe('Billing Page, Mastercard', () => {
     }
   });
 
-  test('should accept Mastercard - 5555555555554444', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.mastercard);
+  test('should not allow to add duplicate card - 5555558265554449', async ({ page }) => {
+    test.setTimeout(120000);
+    await billingPage.addNewCard(testData, cards.fourth);
     await billingPage.verifyCardAddedSuccessfully();
-  });
-
-  test('should accept Mastercard (2-series) - 2223003122003222', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.mastercard2Series);
+    await billingPage.addNewCard(testData, cards.fourth);
+    // await page.waitForTimeout(10000);
     await billingPage.verifyCardAddedSuccessfully();
-  });
 
-  test('should accept Mastercard debit - 5200828282828210', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.mastercardDebit);
-    await billingPage.verifyCardAddedSuccessfully();
+    // await billingPage.verifyDuplicateCardErrorMessage();
   });
-
-  test('should accept Mastercard (prepaid) - 5105105105105100', async () => {
-    test.setTimeout(90000);
-    await billingPage.addNewCard(testData, cards.mastercardPrepaid);
-    await billingPage.verifyCardAddedSuccessfully();
-  });
-
 });

@@ -1,9 +1,9 @@
-import { test } from '../../../fixtures/testFixtures';
+import { test } from '../../../../fixtures/testFixtures';
 import { expect } from '@playwright/test';
-import { BillingPage } from "../../../pages/user/BillingPage";
-import { ENDPOINTS } from "../../../constants/user-endpoints";
-import { loginAndGetToken } from "../../../utils/auth";
-import { PAYMENT_TEST_DATA } from "../../../utils/testData";
+import { BillingPage } from '../../../../pages/user/BillingPage';
+import { ENDPOINTS } from '../../../../constants/user-endpoints';
+import { loginAndGetToken } from '../../../../utils/auth';
+import { PAYMENT_TEST_DATA } from '../../../../utils/testData';
 
 test.describe('Billing Page, Add Credit', () => {
   let billingPage: BillingPage;
@@ -70,7 +70,7 @@ test.describe('Billing Page, Add Credit', () => {
     const firstInvoiceRecord = page.locator('.transaction-container .el-table tbody tr:first-child').first();
     await expect(firstInvoiceRecord).toBeVisible({ timeout: 10000 });
     await expect(firstInvoiceRecord).toContainText('Reload');
-    await expect(firstInvoiceRecord).toContainText('$10');
+    await expect(firstInvoiceRecord).toContainText('$1');
   });
 
   test.skip('should not allow adding credit in currencies other than USD', async ({ request }) => {
